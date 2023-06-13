@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Flight Search</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+  </head>
+  <style>
+    .booking-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .booking-table th,
+    .booking-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .booking-table th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+
+    .btn-cancel-booking {
+      margin: 0;
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#"><b>Hi, {{ get_user_name(session.email) }}</b></a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_routes.user_bookings') }}"
+              ><b>My Bookings</b></a
+            >
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_routes.user_logout') }}" color="white"
+              ><b>Logout</b></a
+            >
+          </li>
+
+      </div>
+    </nav>
+    <div>
+      {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li class="flash-message">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    </div>
+
+    <div class="container mt-5">
+      <h1>Search Flights</h1>
+      <form id="search-flights-form" method="POST" action="/user_search_flights">
+        <div class="form-group">
+          <label for="airlines">Airline:</label>
+          <select id="airlines" name="airlines" class="form-control">
+            <option value=""disabled selected>Select an airline</option>
+            <option value="Emirates">Emirates</option>
+            <option value="Qatar Airways">Qatar Airways</option>
+            <option value="Singapore Airlines">Singapore Airlines</option>
+            <option value="Cathay Pacific Airways">Cathay Pacific Airways</option>
+            <option value="Lufthansa">Lufthansa</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="departure">Departure:</label>
+          <select id="departure" name="departure" class="form-control">
+            <option value=""disabled selected>Select a starting location</option>
+            <option value="ATL">Hartsfield-Jackson Atlanta International Airport (ATL)</option>
+  <option value="PEK">Beijing Capital International Airport (PEK)</option>
+  <option value="DXB">Dubai International Airport (DXB)</option>
+  <option value="LAX">Los Angeles International Airport (LAX)</option>
+  <option value="HND">Tokyo Haneda Airport (HND)</option>
+  <option value="ORD">O'Hare International Airport (ORD)</option>
+  <option value="LHR">Heathrow Airport (LHR)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="arrival">Arrival:</label>
+          <select id="arrival" name="arrival" class="form-control">
+            <option value=""disabled selected>Select a destination</option>
+            <option value="ATL">Hartsfield-Jackson Atlanta International Airport (ATL)</option>
+  <option value="PEK">Beijing Capital International Airport (PEK)</option>
+  <option value="DXB">Dubai International Airport (DXB)</option>
+  <option value="LAX">Los Angeles International Airport (LAX)</option>
+  <option value="HND">Tokyo Haneda Airport (HND)</option>
+  <option value="ORD">O'Hare International Airport (ORD)</option>
+  <option value="LHR">Heathrow Airport (LHR)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="departure_date">Departure Date:</label>
+          <input
+            type="date"
+            id="departure_date"
+            name="departure_date"
+            class="form-control"
+          />
+        </div>
+        <div class="form-group">
+          <label for="departure_time">Departure Time:</label>
+          <input
+            type="time"
+            class="form-control"
+            id="departure_time"
+            name="departure_time"
+          />
+        </div>
+        <div class="form-group">
+          <label for="arrival_date">Arrival Date:</label>
+          <input
+            type="date"
+            class="form-control"
+            id="arrival_date"
+            name="arrival_date"
+          />
+        </div>
+        <div class="form-group">
+          <label for="arrival_time">Arrival Time:</label>
+          <input
+            type="time"
+            class="form-control"
+            id="arrival_time"
+            name="arrival_time"
+          />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </form>
+
+      <div class="booking-table">
+        <h2>Search Results:</h2>
+        {% if flight_data %}
+        <table>
+          <thead>
+            <tr>
+              <th>Airlines</th>
+              <th>Flight Number</th>
+              <th>Departure</th>
+              <th>Arrival</th>
+              <th>Departure Date</th>
+              <th>Departure Time</th>
+              <th>Arrival Date</th>
+              <th>Arrival Time</th>
+              <th>Remaining Seats</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for flight in flight_data %}
+            <tr>
+              <td>{{ flight.airlines }}</td>
+              <td>{{ flight.flight_number }}</td>
+              <td>{{ flight.departure }}</td>
+              <td>{{ flight.arrival }}</td>
+              <td>{{ flight.departure_date }}</td>
+              <td>{{ flight.departure_time }}</td>
+              <td>{{ flight.arrival_date }}</td>
+              <td>{{ flight.arrival_time }}</td>
+              <td>{{ flight.seat_capacity - flight.booked_seats }}</td>
+              <td>
+                <form class="booking-form" action="/user_book_flight" method="POST">
+                  <input type="hidden" name="flight_number" value="{{ flight.flight_number }}">
+                  
+                  <div class="popup">
+                    <h3>Enter the number of tickets to book:</h3>
+                    <input type="number" name="seats" min="1" required>
+                    <button type="submit">Book</button>
+                  </div>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% else %}
+        <p>No flights found for your search criteria.</p>
+        {% endif %}
+      </div>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../static/oldlogin.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">User Sign Up</div>
+      <form  method="POST" action="/user_signup">
+          <div class="field">
+            <input type="name" name="name" required />
+            <label>Name</label>
+          </div>
+          <div class="field">
+            <input type="email" name="email" required />
+            <label>Email Address</label>
+          </div>
+          <div class="field">
+            <input type="password" name="password" required />
+            <label>Password</label>
+          </div>
+          <div class="field">
+            <input type="submit" value="SignUp" />
+          </div>
+          <div class="signup-link">
+            Already have an account?
+            <a href="{{ url_for('user_routes.user_login') }}">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../static/oldlogin.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">Admin Login</div>
+      <div class="card-body">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="/admin_login">
+          <div class="field">
+            <input type="email" name="email" required />
+            <label>Email Address</label>
+          </div>
+          <div class="field">
+            <input type="password" name="password" required />
+            <label>Password</label>
+          </div>
+          <div class="field">
+            <input type="submit" value="Login" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

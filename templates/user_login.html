@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../static/oldlogin.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">User Login</div>
+      <div class="card-body">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('user_routes.user_login') }}">
+          <div class="field">
+            <input type="email" name="email" required />
+            <label>Email Address</label>
+          </div>
+          <div class="field">
+            <input type="password" name="password" required />
+            <label>Password</label>
+          </div>
+          <div class="field">
+            <input type="submit" value="Login" />
+          </div>
+          <div class="signup-link">
+            Don't have an Account?
+            <a href="{{ url_for('user_routes.user_signup') }}">SignUp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flight Booking App</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    /* New booking form */
+    .booking-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .booking-table th,
+    .booking-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+
+    .booking-table th {
+      background-color: #f2f2f2;
+      text-align: left;
+    }
+
+    .btn-cancel-booking {
+      margin: 0;
+    }
+  </style>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="{{ url_for('user_routes.user_dashboard') }}"
+              >Search/Book</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_routes.user_logout') }}"
+              >Logout</a
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul class="flash-messages">
+          {% for message in messages %}
+          <li class="flash-message">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+      </div>
+      <h1>My Bookings</h1>
+      {% if bookings %}
+      <table class="booking-table">
+        <thead>
+          <tr>
+            <th>Booking ID</th>
+            <th>Flight Number</th>
+            <th>Airlines</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Departure Date</th>
+            <th>Departure Time</th>
+            <th>Arrival Date</th>
+            <th>Arrival Time</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+          <tr>
+            <td>{{ booking.ticket_id }}</td>
+            <td>{{ booking.flight_number }}</td>
+            <td>{{ booking.airlines }}</td>
+            <td>{{ booking.departure }}</td>
+            <td>{{ booking.arrival }}</td>
+            <td>{{ booking.departure_date }}</td>
+            <td>{{ booking.departure_time }}</td>
+            <td>{{ booking.arrival_date }}</td>
+            <td>{{ booking.arrival_time }}</td>
+            <td>
+              <form method="post" action="/user_cancel_booking">
+                <input
+                  type="hidden"
+                  name="ticket_id"
+                  value="{{ booking.ticket_id }}"
+                />
+                <button type="submit" class="btn btn-danger btn-cancel-booking">
+                  Cancel Booking
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>You have no bookings yet.</p>
+      {% endif %}
+    </div>
+  </body>
+</html>
