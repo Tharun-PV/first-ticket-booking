@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Flight Routes</title>
+    <title>ADMIN Dashboard-Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,7 +13,6 @@
       crossorigin="anonymous"
     />
     <style>
-      /* New booking form */
       .booking-table {
         border-collapse: collapse;
         width: 100%;
@@ -51,13 +51,15 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">Welcome, {{ session.email }}</a>
+            <a class="nav-link" href="#"
+              ><b>Welcome, {{ session.admin_email }}</b></a
+            >
           </li>
           <li class="nav-item">
             <a
               class="nav-link"
               href="{{ url_for('admin_routes.admin_logout') }}"
-              >Logout</a
+              ><b>Logout</b></a
             >
           </li>
         </ul>
@@ -149,6 +151,7 @@
                 <option value="LHR">Heathrow Airport (LHR)</option>
               </select>
             </div>
+
             <div class="form-group">
               <label for="arrival">Arrival:</label>
               <select id="arrival" name="arrival" class="form-control" required>
@@ -275,7 +278,7 @@
           <h3 class="mt-5">Users Booked Routes</h3>
           <table class="booking-table">
             <tr>
-              <th>Ticket ID</th>
+              <th>Seat No.</th>
               <th>Name</th>
               <th>Email</th>
               <th>Flight Number</th>

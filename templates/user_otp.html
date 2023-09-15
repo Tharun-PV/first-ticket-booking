@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>User OTP Verification-Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../static/oldlogin.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="title">OTP Verification</div>
+      <div class="card-body">
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        <form method="POST" action="{{ url_for('user_routes.user_otp') }}">
+          <div class="field">
+            <input type="otp" name="otp" required />
+            <label>Enter OTP:</label>
+          </div>
+          <div class="field">
+            <input type="submit" value="Verify" />
+            <div class="signup-link">
+              Didn't get the OTP?
+              <a href="{{ url_for('user_routes.user_otp', resend_otp=True) }}"
+                >Resend OTP</a
+              >
+            </div>
+            <div class="signup-link">
+              Wrong Mail?
+              <a href="{{ url_for('user_routes.user_signup') }}">SignUp</a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

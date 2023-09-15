@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Flight Search</title>
-    <!-- Bootstrap CSS -->
+    <title>Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -100,12 +100,12 @@
           <select id="departure" name="departure" class="form-control">
             <option value=""disabled selected>Select a starting location</option>
             <option value="ATL">Hartsfield-Jackson Atlanta International Airport (ATL)</option>
-  <option value="PEK">Beijing Capital International Airport (PEK)</option>
-  <option value="DXB">Dubai International Airport (DXB)</option>
-  <option value="LAX">Los Angeles International Airport (LAX)</option>
-  <option value="HND">Tokyo Haneda Airport (HND)</option>
-  <option value="ORD">O'Hare International Airport (ORD)</option>
-  <option value="LHR">Heathrow Airport (LHR)</option>
+            <option value="PEK">Beijing Capital International Airport (PEK)</option>
+            <option value="DXB">Dubai International Airport (DXB)</option>
+            <option value="LAX">Los Angeles International Airport (LAX)</option>
+            <option value="HND">Tokyo Haneda Airport (HND)</option>
+            <option value="ORD">O'Hare International Airport (ORD)</option>
+            <option value="LHR">Heathrow Airport (LHR)</option>
           </select>
         </div>
         <div class="form-group">
@@ -113,12 +113,12 @@
           <select id="arrival" name="arrival" class="form-control">
             <option value=""disabled selected>Select a destination</option>
             <option value="ATL">Hartsfield-Jackson Atlanta International Airport (ATL)</option>
-  <option value="PEK">Beijing Capital International Airport (PEK)</option>
-  <option value="DXB">Dubai International Airport (DXB)</option>
-  <option value="LAX">Los Angeles International Airport (LAX)</option>
-  <option value="HND">Tokyo Haneda Airport (HND)</option>
-  <option value="ORD">O'Hare International Airport (ORD)</option>
-  <option value="LHR">Heathrow Airport (LHR)</option>
+            <option value="PEK">Beijing Capital International Airport (PEK)</option>
+            <option value="DXB">Dubai International Airport (DXB)</option>
+            <option value="LAX">Los Angeles International Airport (LAX)</option>
+            <option value="HND">Tokyo Haneda Airport (HND)</option>
+            <option value="ORD">O'Hare International Airport (ORD)</option>
+            <option value="LHR">Heathrow Airport (LHR)</option>
           </select>
         </div>
         <div class="form-group">
@@ -193,11 +193,11 @@
               <td>{{ flight.arrival_time }}</td>
               <td>{{ flight.seat_capacity - flight.booked_seats }}</td>
               <td>
-                <form class="booking-form" action="/user_book_flight" method="POST">
+                <form class="booking-form" action="/user_passenger" method="POST">
                   <input type="hidden" name="flight_number" value="{{ flight.flight_number }}">
                   
                   <div class="popup">
-                    <h3>Enter the number of tickets to book:</h3>
+                    <h6>Enter the number of tickets to book:</h6>
                     <input type="number" name="seats" min="1" required>
                     <button type="submit">Book</button>
                   </div>

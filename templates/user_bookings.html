@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Flight Booking App</title>
-    <!-- Bootstrap CSS -->
+    <title>Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -11,7 +11,6 @@
     />
   </head>
   <style>
-    /* New booking form */
     .booking-table {
       border-collapse: collapse;
       width: 100%;
@@ -51,12 +50,12 @@
             <a
               class="nav-link"
               href="{{ url_for('user_routes.user_dashboard') }}"
-              >Search/Book</a
+              ><b>Search/Book</b></a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('user_routes.user_logout') }}"
-              >Logout</a
+              ><b>Logout</b></a
             >
           </li>
         </ul>
@@ -78,7 +77,7 @@
       <table class="booking-table">
         <thead>
           <tr>
-            <th>Booking ID</th>
+            <th>Seat No.</th>
             <th>Flight Number</th>
             <th>Airlines</th>
             <th>Departure</th>

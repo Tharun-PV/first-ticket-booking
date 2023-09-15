@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
+    <title>User SignUp-Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../static/oldlogin.css" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
   </head>
   <body>
     <div class="wrapper">
       <div class="title">User Sign Up</div>
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
       <form  method="POST" action="/user_signup">
           <div class="field">
             <input type="name" name="name" required />
@@ -21,7 +30,7 @@
             <label>Password</label>
           </div>
           <div class="field">
-            <input type="submit" value="SignUp" />
+            <input type="submit" value="SignUp and send OTP" />
           </div>
           <div class="signup-link">
             Already have an account?

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Passenger Details-Flight Ticket Booking System</title>
+    <link rel="icon" type="image/x-icon" href="../static/flightlogo.png" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <style>
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+
+          <li class="nav-item">
+            <a class="nav-link" href="#"><b>Hi, {{ get_user_name(session.email) }}</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('user_routes.user_logout') }}" color="white"
+              ><b>Logout</b></a
+            >
+          </li>
+
+      </div>
+    </nav>
+    <div>
+      {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+          <li class="flash-message">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+    </div>
+    <h1>User Passenger Details</h1>
+    <form
+      method="POST"
+      action="{{ url_for('user_routes.user_passenger_details', num_tickets=num_tickets) }}"
+    >
+      {% for i in range(num_tickets) %}
+      <h3>Passenger {{ i + 1 }}</h3>
+      <label for="name_{{ i + 1 }}">Name:</label>
+      <input
+        type="text"
+        id="name_{{ i + 1 }}"
+        name="name_{{ i + 1 }}"
+        required
+      /><br />
+
+      <label for="age_{{ i + 1 }}">Age:</label>
+      <input
+        type="number"
+        id="age_{{ i + 1 }}"
+        name="age_{{ i + 1 }}"
+        required
+      /><br />
+
+      <label for="gender_{{ i + 1 }}">Gender:</label>
+      <select id="gender_{{ i + 1 }}" name="gender_{{ i + 1 }}" required>
+        <option value=""disabled selected>Select</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option></select
+      ><br />
+      {% endfor %}
+      <input type="submit" value="Next" />
+    </form>
+  </body>
+</html>
