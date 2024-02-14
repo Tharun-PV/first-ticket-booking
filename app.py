@@ -6,8 +6,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
 
 # Configure your email and password here
-app.config['OUTLOOK_EMAIL'] = 'tharunprojects@outlook.com'
-app.config['OUTLOOK_PASSWORD'] = 'Sona@Projects$4'
+app.config['OUTLOOK_EMAIL'] = '#####@mail.com'
+app.config['OUTLOOK_PASSWORD'] = '#####'
 
 # Register admin and user routes
 app.register_blueprint(admin_routes)
